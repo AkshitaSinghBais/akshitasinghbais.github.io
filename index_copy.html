@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akshita Singh Bais — Product, Strategy, AI</title>
+<meta name="description" content="Akshita Singh Bais — Product, Strategy & AI. 4 years across Agentic AI, B2B SaaS, and management consulting. IIM Amritsar MBA. Princeton, NJ." />
+
+<!--
+================================================================================
+ASSET CHECKLIST — place these files in the repo before deploying
+================================================================================
+ROOT/
+├── index.html                              (this file)
+├── assets/
+│   ├── akshita.jpg                         portrait, square ~600x600 (used in About section)
+│   ├── akshita-resume.pdf                  downloadable resume
+│   ├── logos/
+│   │   ├── indiamart.png                   transparent PNG, ~300px wide
+│   │   ├── accenture.png
+│   │   ├── pathinfotech.png
+│   │   ├── csrn.png
+│   │   └── iim-amritsar.png
+│   └── writing/                            16:9 thumbnails (~800x450 jpg)
+│       ├── case-study-1.jpg
+│       ├── case-study-2.jpg
+│       ├── case-study-3.jpg
+│       ├── case-study-4.jpg
+│       ├── teardown-1.jpg
+│       ├── teardown-2.jpg
+│       └── teardown-3.jpg
+└── (projects/ folder no longer required — the AI Listing Approver case study
+   is now embedded directly in this page under the "Featured Case Study" section)
+================================================================================
+
+================================================================================
+PLACEHOLDER LINK CHECKLIST — every "#" link to replace before going live
+================================================================================
+SECTION 4 — EXPERIENCE (orbital nodes)
+  Node A (IndiaMART)   "Visit live product ↗"   → search "[REPLACE: indiamart-live-url]"
+  Node B (Accenture)   — no external links (case study not exposed from the orbital panel)
+
+SECTION 5 — FEATURED CASE STUDY (embedded)
+  Hero CTA  "Visit the Demo ↗"   → replace href="#" with the live demo URL
+  Footer CTA "Visit the Demo ↗"  → replace href="#" with the same demo URL
+  Also fill in the prose inside each <div class="cs-block"> — every block has a
+  comment starting with REPLACE telling you what content to paste.
+
+SECTION 6 — WRITING & CASE STUDIES
+  All Case Study tiles    href="#"   → replace with PDF URL for each case study
+  All Teardown tiles      href="#"   → replace with article/teardown URL for each
+================================================================================
+-->
+
+<!-- Google Fonts: Fraunces (serif display) + Inter (sans body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================================
+   DESIGN TOKENS
+   ============================================================================ */
+:root {
+  --bg:           #FAFAF7;
+  --text:         #1A1A1A;
+  --heading:      #0A0A0A;
+  --muted:        #5A5A5A;
+  --border:       #E8E8E3;
+  --yellow:       #F5E663;
+  --lavender:     #C4B5E0;
+  --white:        #FFFFFF;
+
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Inter', system-ui, -apple-system, sans-serif;
+
+  --container: 1180px;
+  --gutter:    clamp(20px, 4vw, 48px);
+  --section-y: clamp(80px, 11vh, 120px);
+}
+
+/* ============================================================================
+   RESET & BASE
+   ============================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  color: var(--heading);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+::selection { background: var(--yellow); color: var(--heading); }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Section vertical padding. The more specific selector below is needed
+   because many sections also carry the .container class, whose
+   `padding: 0 var(--gutter)` shorthand would otherwise zero out the
+   vertical padding from the bare `section` rule. */
+section { padding: var(--section-y) 0; }
+section.container { padding: var(--section-y) var(--gutter); }
+
+.section-heading {
+  font-size: clamp(36px, 5vw, 56px);
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 64px;
+}
+
+/* ============================================================================
+   STICKY NAV
+   ============================================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 250, 247, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.nav.scrolled { border-bottom-color: var(--border); }
+
+.nav-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-link {
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+.nav-link:hover { color: var(--heading); }
+
+/* active dot indicator (lemon yellow) */
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.nav-toggle {
+  display: none;
+  width: 28px;
+  height: 28px;
+  position: relative;
+}
+.nav-toggle span {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--heading);
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+.nav-toggle span:nth-child(1) { top: 8px; }
+.nav-toggle span:nth-child(2) { top: 14px; }
+.nav-toggle span:nth-child(3) { top: 20px; }
+.nav-toggle.open span:nth-child(1) { top: 14px; transform: rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { top: 14px; transform: rotate(-45deg); }
+
+/* ============================================================================
+   HERO
+   ============================================================================ */
+.hero {
+  padding-top: clamp(60px, 8vh, 100px);
+  padding-bottom: clamp(60px, 8vh, 100px);
+}
+
+.hero-grid {
+  display: block;
+  max-width: 860px;
+}
+
+.eyebrow {
+  display: inline-block;
+  background: rgba(196, 181, 224, 0.45); /* lavender chip */
+  color: var(--heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+
+.hero-headline {
+  font-size: clamp(40px, 6.2vw, 72px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 28px;
+}
+
+/* animated yellow underline under the keyword phrase */
+.headline-accent {
+  position: relative;
+  display: inline;
+  white-space: nowrap;
+}
+.headline-accent::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 14px;
+  background: var(--yellow);
+  z-index: -1;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: sweepUnderline 1.1s cubic-bezier(0.6, 0.02, 0.2, 1) 0.5s forwards;
+  opacity: 0.85;
+}
+@keyframes sweepUnderline {
+  to { transform: scaleX(1); }
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+/* PRIMARY BUTTON: solid charcoal + thin yellow underline on hover */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--heading);
+  color: var(--white);
+  padding: 14px 26px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 6px;
+  height: 1.5px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.btn-primary:hover::after { transform: scaleX(1); }
+
+/* SECONDARY BUTTON: outlined charcoal + lavender 20% fill on hover */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--heading);
+  padding: 13px 25px;
+  border: 1.5px solid var(--heading);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.25s ease;
+}
+.btn-secondary:hover { background: rgba(196, 181, 224, 0.2); }
+
+/* LOGO STRIP */
+.logo-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 0;
+  margin-top: 64px;
+}
+.logo-strip-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 24px;
+}
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.logo-row img {
+  height: 32px;
+  width: auto;
+  filter: grayscale(100%);
+  opacity: 0.55;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+.logo-row img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* METRICS */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 80px;
+}
+.metric { text-align: left; }
+.metric-num {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6vw, 78px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--heading);
+  position: relative;
+  display: inline-block;
+  transition: color 0.6s ease;
+}
+.metric-num.sweeping { color: var(--yellow); }
+.metric-label {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 12px;
+  max-width: 260px;
+}
+
+/* ============================================================================
+   ABOUT
+   ============================================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
+  align-items: start;
+}
+/* left column wraps heading + portrait stacked vertically */
+.about-left {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.about-photo {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--border); /* fallback while loading */
+  animation: float 6s ease-in-out infinite;
+  box-shadow: 0 18px 40px -20px rgba(10, 10, 10, 0.25);
+}
+.about p {
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.about p:last-child { margin-bottom: 0; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* ============================================================================
+   EXPERIENCE — ORBITAL VIEW (orbit on left, detail panel on right)
+   ============================================================================ */
+.experience {
+  background: linear-gradient(180deg, var(--bg) 0%, #F5F5F0 100%);
+}
+
+.orbital-instruction {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+
+/* two-column layout: orbit + persistent detail panel */
+.experience-layout {
+  display: grid;
+  grid-template-columns: minmax(360px, 460px) 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.orbital-stage {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+
+/* darker axis ring — primary visible orbit */
+.orbital-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px dashed #6F6F68; /* darker, more present */
+  animation: ringBreathe 6s ease-in-out infinite;
+}
+/* faint outer ring for depth */
+.orbital-stage::before {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  border: 1px dashed rgba(111, 111, 104, 0.35);
+  pointer-events: none;
+  animation: ringBreathe 6s ease-in-out infinite reverse;
+}
+/* inner faint axis ring */
+.orbital-stage::after {
+  content: '';
+  position: absolute;
+  inset: 26%;
+  border-radius: 50%;
+  border: 1px dashed rgba(111, 111, 104, 0.25);
+  pointer-events: none;
+}
+@keyframes ringBreathe {
+  0%, 100% { opacity: 1;    transform: scale(1);     }
+  50%      { opacity: 0.78; transform: scale(1.012); }
+}
+
+/* central hub */
+.orbital-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: var(--heading);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 2;
+}
+.orbital-hub-name {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.orbital-hub-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* nodes — positioned statically around the orbit. No motion on the node
+   itself: text stays perfectly upright, click targets stay stationary.
+   The "gentle motion" comes from the ring breathing (see below). */
+.orbital-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 78px;
+  height: 78px;
+  margin: -39px 0 0 -39px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1.5px solid var(--heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--heading);
+  /* positional transform set inline by JS */
+}
+.orbital-node:hover {
+  box-shadow: 0 10px 22px -8px rgba(0,0,0,0.22);
+  transform: var(--base-transform) scale(1.06);
+}
+.orbital-node.active {
+  box-shadow: 0 0 0 4px var(--yellow), 0 10px 24px -8px rgba(0,0,0,0.25);
+}
+
+/* label positioned outside the node, radially outward.
+   JS sets --label-x and --label-y based on the node's angle. */
+.orbital-node-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(calc(-50% + var(--label-x, 0px)), calc(-50% + var(--label-y, 0px)));
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a7aa6; /* darker lavender for readability */
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* persistent detail panel — sits in the right column of the experience layout.
+   Always visible. When no role is selected, shows a placeholder.
+   When a role is selected, fades in the role content. */
+.orbital-detail {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 40px 44px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* placeholder state: shown when no role is selected */
+.orbital-detail-placeholder {
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  padding: 24px 0;
+}
+.orbital-detail-placeholder .placeholder-icon {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 16px;
+  color: #b8b8b0;
+}
+/* content fades in/out on role switch */
+.orbital-detail-content {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.orbital-detail.has-role .orbital-detail-content { opacity: 1; transform: translateY(0); }
+.orbital-detail.has-role .orbital-detail-placeholder { display: none; }
+.orbital-detail:not(.has-role) .orbital-detail-content { display: none; }
+
+/* close button (X) — top right of the panel, only when a role is shown */
+.orbital-detail-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.orbital-detail-close:hover {
+  background: var(--heading);
+  color: var(--white);
+  border-color: var(--heading);
+}
+.orbital-detail-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8a7aa6;
+  margin-bottom: 12px;
+}
+.orbital-detail-title {
+  font-size: clamp(22px, 2.4vw, 30px);
+  margin-bottom: 6px;
+}
+.orbital-detail-meta {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.orbital-detail-body {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+}
+.orbital-detail-body ul {
+  margin: 16px 0 0 20px;
+}
+.orbital-detail-body li { margin-bottom: 8px; }
+
+.orbital-detail-links {
+  display: flex;
+  gap: 28px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+/* link variants */
+.link-primary, .link-secondary {
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.link-primary { color: var(--heading); }
+.link-secondary { color: var(--muted); }
+
+.link-primary::after,
+.link-secondary::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.link-secondary::after { background: var(--lavender); }
+.link-primary:hover::after,
+.link-secondary:hover::after { transform: scaleX(1); }
+.link-secondary:hover { color: var(--heading); }
+
+/* mobile vertical timeline fallback */
+.experience-timeline {
+  display: none;
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  padding-left: 32px;
+}
+.experience-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+}
+.timeline-dot {
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1.5px solid var(--heading);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+.timeline-item.active .timeline-dot {
+  box-shadow: 0 0 0 4px var(--yellow);
+}
+.timeline-trigger {
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text);
+  font-family: inherit;
+}
+.timeline-lens {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a7aa6;
+  margin-bottom: 4px;
+}
+.timeline-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 4px;
+}
+.timeline-meta {
+  font-size: 13px;
+  color: var(--muted);
+}
+.timeline-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, margin-top 0.3s ease;
+}
+.timeline-item.active .timeline-body {
+  max-height: 800px;
+  margin-top: 16px;
+}
+.timeline-body p, .timeline-body ul { font-size: 15px; }
+.timeline-body ul { margin-left: 18px; margin-top: 8px; }
+.timeline-body li { margin-bottom: 6px; }
+.timeline-body .orbital-detail-links { margin-top: 20px; padding-top: 18px; }
+
+/* ============================================================================
+   CASE STUDY (embedded, in the Featured Case Study section)
+   Replaces the previous .work-card grid. One narrative case study is rendered
+   directly inline on the portfolio page.
+   ============================================================================ */
+
+/* hero block at the top of the case study */
+.cs-hero {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px;
+  margin-bottom: 48px;
+}
+.cs-hero-meta {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.cs-hero-title {
+  font-size: clamp(32px, 4.4vw, 52px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--heading);
+  margin-bottom: 18px;
+}
+.cs-hero-summary {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 760px;
+  margin-bottom: 32px;
+}
+.cs-hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* alternating two-column content blocks: small eyebrow + heading on left,
+   prose/bullets on right. Reads as a typeset case study, not a sales page. */
+.cs-block {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 56px;
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+}
+.cs-block:first-of-type { border-top: none; padding-top: 24px; }
+
+.cs-block-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a7aa6; /* lavender accent */
+  margin-bottom: 12px;
+}
+.cs-block-heading {
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--heading);
+}
+.cs-block-body {
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.cs-block-body p { margin-bottom: 16px; }
+.cs-block-body p:last-child { margin-bottom: 0; }
+.cs-block-body ul {
+  list-style: none;
+  margin: 16px 0;
+  padding: 0;
+}
+.cs-block-body li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 10px;
+}
+.cs-block-body li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 10px;
+  height: 1px;
+  background: var(--heading);
+}
+.cs-block-body strong { color: var(--heading); font-weight: 600; }
+
+/* impact metrics callout — big numerals in a card */
+.cs-impact {
+  background: linear-gradient(180deg, var(--white) 0%, #FAFAF5 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px;
+  margin-top: 48px;
+}
+.cs-impact-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a7aa6;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.cs-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.cs-impact-item { text-align: center; }
+.cs-impact-num {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4.2vw, 52px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--heading);
+  margin-bottom: 8px;
+}
+.cs-impact-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* closing block — demo link + back-to-orbit */
+.cs-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.cs-footer-text {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 480px;
+}
+
+/* ============================================================================
+   EMBEDDED INTERACTIVE CASE STUDY
+   16:9 iframe container, lavender accent border, navigation hint + open-in-new-tab.
+   The iframe loads listing-approver-demo.html as a self-contained presentation.
+   ============================================================================ */
+.cs-embed {
+  margin-top: 32px;
+}
+.cs-embed-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #F2EFE8;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--lavender);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(20, 19, 15, 0.06);
+}
+.cs-embed-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.cs-embed-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.cs-embed-hint {
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cs-embed-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  margin: 0 2px;
+  font-family: inherit;
+  font-size: 11px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--heading);
+}
+@media (max-width: 640px) {
+  .cs-embed-frame { aspect-ratio: 4 / 3; }
+  .cs-embed-hint { font-size: 11px; }
+}
+
+/* ============================================================================
+   WRITING & CASE STUDIES
+   ============================================================================ */
+.writing-subsection { margin-bottom: 64px; }
+.writing-subsection:last-child { margin-bottom: 0; }
+
+/* writing section scoped override:
+   tighter gap from sub-paragraph down to the first subtitle (green arrow fix) */
+#writing .section-sub { margin-bottom: 28px; }
+.writing-subtitle {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+.tile {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden; /* clip the image to the rounded corners */
+  transition: transform 0.25s ease, background 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.tile:hover {
+  transform: translateY(-3px);
+  background: rgba(196, 181, 224, 0.15); /* lavender tint */
+  box-shadow: 0 14px 28px -18px rgba(10,10,10,0.18);
+}
+
+/* 16:9 image area at top of each tile.
+   Uses aspect-ratio so the box reserves space even before the image loads. */
+.tile-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, #EEEEE8 0%, #E0DFD8 100%); /* neutral fallback */
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.45s ease;
+}
+.tile:hover .tile-image {
+  transform: scale(1.03);
+}
+
+.tile-body {
+  padding: 22px 24px 24px;
+}
+.tile-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.tile-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  min-height: 38px;
+}
+.tile-arrow {
+  font-size: 16px;
+  color: var(--heading);
+  transition: transform 0.25s ease;
+  display: inline-block;
+}
+.tile:hover .tile-arrow { transform: translateX(4px); }
+
+/* ============================================================================
+   CAPABILITIES
+   ============================================================================ */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.cap-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  transition: transform 0.25s ease;
+}
+.cap-card:hover { transform: translateY(-3px); }
+.cap-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 16px;
+  color: var(--heading);
+}
+.cap-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+.cap-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cap-chip {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--heading);
+  background: rgba(196, 181, 224, 0.25);
+  padding: 5px 10px;
+  border-radius: 100px;
+  letter-spacing: 0.01em;
+}
+
+/* ============================================================================
+   RECOGNITION & EDUCATION (three-tile grid)
+   ============================================================================ */
+.recog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.recog-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+.recog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -20px rgba(10,10,10,0.18);
+}
+.recog-icon {
+  width: 26px;
+  height: 26px;
+  color: var(--heading);
+  margin-bottom: 18px;
+}
+.recog-card-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.recog-card-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8a7aa6; /* lavender accent */
+  margin-bottom: 20px;
+}
+.recog-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.recog-items li {
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.recog-items li:first-child { border-top: none; padding-top: 4px; }
+.recog-items li:last-child  { padding-bottom: 0; }
+.recog-item-primary {
+  display: block;
+  color: var(--heading);
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.recog-item-meta {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ============================================================================
+   OPEN TO
+   ============================================================================ */
+.opento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.opento-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+.opento-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 14px;
+}
+.opento-body {
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 24px;
+  flex: 1;
+  line-height: 1.6;
+}
+.opento-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--heading);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  align-self: flex-start;
+}
+.opento-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.opento-link:hover::after { transform: scaleX(1); }
+
+/* ============================================================================
+   CONTACT
+   ============================================================================ */
+.contact { text-align: left; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.contact-details {
+  list-style: none;
+  margin-bottom: 32px;
+}
+.contact-details li {
+  font-size: 16px;
+  color: var(--text);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.contact-details .label {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.contact-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ============================================================================
+   SCROLL REVEAL (vanilla, no libs)
+   ============================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.16s; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.24s; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.32s; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.4s; }
+.reveal-stagger.visible > *:nth-child(7) { transition-delay: 0.48s; }
+.reveal-stagger.visible > *:nth-child(8) { transition-delay: 0.56s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .about-photo, .orbital-ring, .orbital-stage::before { animation: none; }
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 960px) {
+  .cap-grid { grid-template-columns: repeat(2, 1fr); }
+  .opento-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .recog-grid { grid-template-columns: 1fr; }
+  /* experience: stack orbit above detail panel on tablet */
+  .experience-layout { grid-template-columns: 1fr; gap: 40px; max-width: 560px; }
+  .orbital-stage { max-width: 420px; }
+  .orbital-detail { min-height: auto; padding: 32px 28px; }
+  /* case study */
+  .cs-block { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
+  .cs-hero, .cs-impact { padding: 36px 28px; }
+  .cs-impact-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    flex-direction: column;
+    gap: 0;
+    padding: 16px var(--gutter) 24px;
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-110%);
+    transition: transform 0.3s ease;
+  }
+  .nav-links.open { transform: translateY(0); }
+  .nav-link {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 16px;
+  }
+  .nav-link.active::after { left: 0; transform: none; }
+  .nav-toggle { display: block; }
+
+  .hero-grid { display: block; }
+  .metrics { grid-template-columns: 1fr; gap: 32px; }
+
+  /* swap orbital view for vertical timeline */
+  .orbital-stage { display: none; }
+  .orbital-instruction { display: none; }
+  .orbital-detail { display: none !important; }
+  .experience-timeline { display: block; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================================
+     NAV
+============================================================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">Akshita Singh Bais</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about"      class="nav-link">About</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#work"       class="nav-link">Work</a></li>
+      <li><a href="#writing"    class="nav-link">Writing</a></li>
+      <li><a href="#skills"     class="nav-link">Skills</a></li>
+      <li><a href="#contact"    class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============================================================================
+     HERO
+============================================================================ -->
+<header id="top" class="hero container">
+  <div class="hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Product · Strategy · AI</span>
+      <h1 class="hero-headline">
+        I turn complex problems into <span class="headline-accent">measurable business outcomes</span>.
+      </h1>
+      <p class="hero-sub">
+        4 years across Agentic AI products, B2B SaaS, and management consulting. IIM Amritsar MBA. Currently in Princeton, NJ.
+      </p>
+      <div class="hero-cta">
+        <a href="#work"                 class="btn-primary">See My Work</a>
+        <a href="assets/akshita-resume.pdf" class="btn-secondary" download>Download Resume</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGO STRIP -->
+  <div class="logo-strip reveal">
+    <div class="logo-strip-label">Where I've worked & studied</div>
+    <div class="logo-row">
+      <!-- ASSETS: assets/logos/*.png -->
+      <img src="assets/logos/indiamart.png"    alt="IndiaMART" />
+      <img src="assets/logos/accenture.png"    alt="Accenture" />
+      <img src="assets/logos/pathinfotech.png" alt="Path Infotech" />
+      <img src="assets/logos/csrn.png"         alt="CSRN" />
+      <img src="assets/logos/iim-amritsar.png" alt="IIM Amritsar" />
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics reveal-stagger" id="metricsRow">
+    <div class="metric">
+      <div class="metric-num" data-target="250" data-prefix="$" data-suffix="K">$0K</div>
+      <div class="metric-label">Annual savings delivered</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num" data-target="300" data-prefix="" data-suffix="K/day">0</div>
+      <div class="metric-label">AI decisions at production scale</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num" data-target="30" data-prefix="+" data-suffix="%">+0%</div>
+      <div class="metric-label">User growth driven (enterprise SaaS)</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================================
+     ABOUT
+============================================================================ -->
+<section id="about" class="about container">
+  <div class="about-grid">
+    <div class="about-left">
+      <h2 class="section-heading reveal">About</h2>
+      <!-- ASSET: assets/akshita.jpeg (portrait, square ~600x600) -->
+      <img src="assets/akshita.jpeg" alt="Akshita Singh Bais" class="about-photo reveal" />
+    </div>
+    <div>
+      <p class="reveal">
+        I work where strategy meets execution. Over four years I've led zero-to-one AI product launches at IndiaMART processing 300K decisions daily, owned enterprise B2B platform delivery at Accenture serving Fortune 500 clients (AT&amp;T, L'Oréal), and consulted on digital transformation for non-profits expanding program reach to 1,000+ users.
+      </p>
+      <p class="reveal">
+        My background spans product management, technology consulting, market research, and an MBA from IIM Amritsar. I'm comfortable in a PRD, a board deck, or a stakeholder workshop. What I optimize for: clarity of thinking, measurable impact, and getting cross-functional teams to ship.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     EXPERIENCE — ORBITAL
+============================================================================ -->
+<section id="experience" class="experience">
+  <div class="container">
+    <h2 class="section-heading reveal" style="text-align:center;">Experience</h2>
+    <p class="section-sub reveal" style="margin:0 auto 24px; text-align:center;">
+      Four years across Agentic AI, enterprise B2B SaaS, and management consulting.
+    </p>
+    <p class="orbital-instruction reveal">Click a node to explore each role</p>
+
+    <!-- two-column layout: orbit on left, persistent detail panel on right -->
+    <div class="experience-layout reveal">
+
+      <!-- DESKTOP: ORBITAL STAGE (left column) -->
+      <div class="orbital-stage" id="orbitalStage">
+        <div class="orbital-ring" id="orbitalRing">
+          <!-- nodes injected by JS -->
+        </div>
+        <div class="orbital-hub">
+          <div class="orbital-hub-name">Akshita<br/>Singh Bais</div>
+          <div class="orbital-hub-sub">4 years</div>
+        </div>
+      </div>
+
+      <!-- DESKTOP: PERSISTENT DETAIL PANEL (right column) -->
+      <div class="orbital-detail" id="orbitalDetail" aria-live="polite">
+        <!-- placeholder shown when no role selected -->
+        <div class="orbital-detail-placeholder" id="orbitalDetailPlaceholder">
+          <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 3"/>
+          </svg>
+          <div>Select any node from the orbit to view that role's details.</div>
+        </div>
+        <!-- role content rendered into this container by JS -->
+        <div class="orbital-detail-content" id="orbitalDetailContent"></div>
+      </div>
+
+    </div>
+
+    <!-- MOBILE: VERTICAL TIMELINE FALLBACK (same data) -->
+    <div class="experience-timeline" id="experienceTimeline"></div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     FEATURED CASE STUDY — AI LISTING APPROVER
+     ============================================================================
+     This section is the case study, embedded directly in the page.
+     The user can paste their own copy into each marked block below.
+
+     STRUCTURE:
+       1. Hero (title + meta + summary + demo button)
+       2. Context block
+       3. Problem block
+       4. Approach block
+       5. Solution block
+       6. Impact metrics callout
+       7. Reflection block (optional — delete if not needed)
+       8. Footer with demo CTA
+
+     Each cs-block has the same shape:
+       <div class="cs-block">
+         <div>
+           <div class="cs-block-eyebrow">EYEBROW LABEL</div>
+           <h3 class="cs-block-heading">Block Heading</h3>
+         </div>
+         <div class="cs-block-body">...prose, bullets, etc...</div>
+       </div>
+
+     To skip a block, just delete the entire <div class="cs-block">...</div>.
+     Replace href="#" with the live demo URL.
+============================================================================ -->
+<section id="work" class="container">
+  <h2 class="section-heading reveal">Featured Case Study</h2>
+  <p class="section-sub reveal">
+    A deep look at one zero-to-one product I led end-to-end at IndiaMART.
+  </p>
+
+  <!-- ===== EMBEDDED INTERACTIVE CASE STUDY =====
+       5-act narrative: old pipeline → 4 stakeholder pains → 3 success criteria →
+       agentic architecture → measured outcomes. Loads listing-approver-demo.html
+       in an isolated iframe so its fixed-positioned 1920×1080 stage scales inside
+       the portfolio layout without leaking CSS into the rest of the page. -->
+  <div class="cs-embed reveal">
+    <div class="cs-embed-frame">
+      <iframe
+        src="listing-approver-demo.html"
+        title="AI Listing Approver — interactive 5-act case study"
+        loading="lazy"
+        allow="fullscreen"></iframe>
+    </div>
+    <div class="cs-embed-meta">
+      <span class="cs-embed-hint">
+        Click the right side to advance · or use <kbd>←</kbd> <kbd>→</kbd>
+      </span>
+      <a href="listing-approver-demo.html" class="btn-secondary" target="_blank" rel="noopener">Open fullscreen ↗</a>
+      <a href="#" class="btn-primary" target="_blank" rel="noopener">Visit the Demo ↗</a>
+    </div>
+  </div>
+
+ 
+<!-- ============================================================================
+     CASE STUDIES
+============================================================================ -->
+<section id="writing" class="container">
+  <h2 class="section-heading reveal">Case Studies</h2>
+  <p class="section-sub reveal">
+    Long-form analysis, product teardowns, and reflections on building AI products and consulting through ambiguity.
+  </p>
+
+  <!-- ========================================================================
+       A. CASE STUDIES (PDFs)
+       Each tile has a 16:9 image at the top.
+       ASSETS to provide (place in assets/writing/):
+         assets/writing/case-study-1.jpg
+         assets/writing/case-study-2.jpg
+         assets/writing/case-study-3.jpg
+         assets/writing/case-study-4.jpg
+       Replace the href="#" with the PDF URL when wiring.
+       ====================================================================== -->
+  <div class="writing-subsection reveal">
+    <div class="writing-subtitle">Case Studies</div>
+    <div class="tile-grid">
+      <!-- TILE TEMPLATE — DUPLICATE THIS BLOCK FOR ADDITIONAL CASE STUDIES -->
+      <a href="#" class="tile" target="_blank" rel="noopener">
+        <img src="assets/writing/case-study-1.jpg" alt="" class="tile-image" loading="lazy" />
+        <div class="tile-body">
+          <div class="tile-title">Case Study 1</div>
+          <div class="tile-sub">Subtitle placeholder</div>
+          <span class="tile-arrow">→</span>
+        </div>
+      </a>
+      <a href="#" class="tile" target="_blank" rel="noopener">
+        <img src="assets/writing/case-study-2.jpg" alt="" class="tile-image" loading="lazy" />
+        <div class="tile-body">
+          <div class="tile-title">Case Study 2</div>
+          <div class="tile-sub">Subtitle placeholder</div>
+          <span class="tile-arrow">→</span>
+        </div>
+      </a>
+      <a href="#" class="tile" target="_blank" rel="noopener">
+        <img src="assets/writing/case-study-3.jpg" alt="" class="tile-image" loading="lazy" />
+        <div class="tile-body">
+          <div class="tile-title">Case Study 3</div>
+          <div class="tile-sub">Subtitle placeholder</div>
+          <span class="tile-arrow">→</span>
+        </div>
+      </a>
+      <a href="#" class="tile" target="_blank" rel="noopener">
+        <img src="assets/writing/case-study-4.jpg" alt="" class="tile-image" loading="lazy" />
+        <div class="tile-body">
+          <div class="tile-title">Case Study 4</div>
+          <div class="tile-sub">Subtitle placeholder</div>
+          <span class="tile-arrow">→</span>
+        </div>
+      </a>
+      <!-- END CASE STUDY TILE TEMPLATE -->
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       B. PRODUCT TEARDOWNS
+       Each tile has a 16:9 image at the top.
+       ASSETS to provide (place in assets/writing/):
+         assets/writing/teardown-1.jpg
+         assets/writing/teardown-2.jpg
+         assets/writing/teardown-3.jpg
+       Replace the href="#" with the live URL when wiring.
+       ====================================================================== -->
+  <div class="writing-subsection reveal">
+    <div class="writing-subtitle">Product Teardowns</div>
+    <div class="tile-grid">
+      <!-- TILE TEMPLATE — DUPLICATE FOR MORE TEARDOWNS -->
+      <a href="#" class="tile" target="_blank" rel="noopener">
+        <img src="assets/writing/teardown-1.jpg" alt="" class="tile-image" loading="lazy" />
+        <div class="tile-body">
+          <div class="tile-title">Teardown 1</div>
+          <div class="tile-sub">Subtitle placeholder</div>
+          <span class="tile-arrow">→</span>
+        </div>
+      </a>
+      <a href="#" class="tile" target="_blank" rel="noopener">
+        <img src="assets/writing/teardown-2.jpg" alt="" class="tile-image" loading="lazy" />
+        <div class="tile-body">
+          <div class="tile-title">Teardown 2</div>
+          <div class="tile-sub">Subtitle placeholder</div>
+          <span class="tile-arrow">→</span>
+        </div>
+      </a>
+      <a href="#" class="tile" target="_blank" rel="noopener">
+        <img src="assets/writing/teardown-3.jpg" alt="" class="tile-image" loading="lazy" />
+        <div class="tile-body">
+          <div class="tile-title">Teardown 3</div>
+          <div class="tile-sub">Subtitle placeholder</div>
+          <span class="tile-arrow">→</span>
+        </div>
+      </a>
+      <!-- END TEARDOWN TILE TEMPLATE -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     CAPABILITIES
+============================================================================ -->
+<section id="skills" class="container">
+  <h2 class="section-heading reveal">What I Bring</h2>
+  <p class="section-sub reveal">
+    A cross-functional toolkit built across product, consulting, and engineering.
+  </p>
+
+  <div class="cap-grid reveal-stagger">
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18M3 21h18M5 3v18M19 3v18M9 8h6M9 12h6M9 16h6"/></svg>
+      <h3 class="cap-title">Strategy &amp; Consulting</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">Market Research</span>
+        <span class="cap-chip">Competitive Analysis</span>
+        <span class="cap-chip">GTM Strategy</span>
+        <span class="cap-chip">Business Analysis</span>
+        <span class="cap-chip">Digital Transformation</span>
+        <span class="cap-chip">Stakeholder Workshops</span>
+      </div>
+    </div>
+
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v16"/></svg>
+      <h3 class="cap-title">Product Management</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">Product Strategy</span>
+        <span class="cap-chip">Roadmapping</span>
+        <span class="cap-chip">PRD Authoring</span>
+        <span class="cap-chip">MVP Definition</span>
+        <span class="cap-chip">A/B Testing</span>
+        <span class="cap-chip">Agile / Scrum</span>
+        <span class="cap-chip">Sprint Planning</span>
+        <span class="cap-chip">UAT</span>
+      </div>
+    </div>
+
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+      <h3 class="cap-title">AI / ML &amp; Emerging Tech</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">LLM Applications</span>
+        <span class="cap-chip">Prompt Engineering</span>
+        <span class="cap-chip">Agentic AI Systems</span>
+        <span class="cap-chip">Generative AI (Gemini)</span>
+        <span class="cap-chip">Model Evaluation</span>
+        <span class="cap-chip">AI Cost Optimization</span>
+      </div>
+    </div>
+
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V10M9 21V4M15 21V12M21 21V7"/></svg>
+      <h3 class="cap-title">Data &amp; Analytics</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">SQL</span>
+        <span class="cap-chip">Funnel Analysis</span>
+        <span class="cap-chip">Cohort Analysis</span>
+        <span class="cap-chip">Power BI</span>
+        <span class="cap-chip">Advanced Excel</span>
+        <span class="cap-chip">VBA</span>
+        <span class="cap-chip">Hypothesis-Driven Analysis</span>
+      </div>
+    </div>
+
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+      <h3 class="cap-title">Customer &amp; UX</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">User Interviews</span>
+        <span class="cap-chip">Customer Journey Mapping</span>
+        <span class="cap-chip">UX Optimization</span>
+        <span class="cap-chip">Experimentation Frameworks</span>
+      </div>
+    </div>
+
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><path d="M2 21c0-3 3-5 6-5s6 2 6 5M13 21c0-3 3-5 6-5"/></svg>
+      <h3 class="cap-title">Delivery &amp; Leadership</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">Cross-Functional Leadership</span>
+        <span class="cap-chip">Backlog Prioritization</span>
+        <span class="cap-chip">Team Management</span>
+        <span class="cap-chip">Mentoring</span>
+        <span class="cap-chip">Stakeholder Management</span>
+      </div>
+    </div>
+
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h4v4H7zM13 7h4v4h-4zM7 13h4v4H7zM13 13h4v4h-4z"/></svg>
+      <h3 class="cap-title">Tools</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">JIRA</span>
+        <span class="cap-chip">Confluence</span>
+        <span class="cap-chip">Figma</span>
+        <span class="cap-chip">Kibana</span>
+        <span class="cap-chip">Google Analytics</span>
+        <span class="cap-chip">REST APIs</span>
+        <span class="cap-chip">Postman</span>
+        <span class="cap-chip">Google Apps Script</span>
+      </div>
+    </div>
+
+    <div class="cap-card">
+      <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+      <h3 class="cap-title">Domains</h3>
+      <div class="cap-chips">
+        <span class="cap-chip">B2B SaaS</span>
+        <span class="cap-chip">Marketplaces</span>
+        <span class="cap-chip">Enterprise Software</span>
+        <span class="cap-chip">Application Security</span>
+        <span class="cap-chip">Non-Profit / Social Impact</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     RECOGNITION & EDUCATION — three tiles
+============================================================================ -->
+<section id="recognition" class="container">
+  <h2 class="section-heading reveal">Recognition &amp; Education</h2>
+
+  <div class="recog-grid reveal-stagger">
+
+    <!-- TILE 1: EDUCATION -->
+    <div class="recog-card">
+      <svg class="recog-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 10L12 5 2 10l10 5 10-5z"/>
+        <path d="M6 12v5c3 2 9 2 12 0v-5"/>
+      </svg>
+      <div class="recog-card-eyebrow">Education</div>
+      <h3 class="recog-card-title">Degrees</h3>
+      <ul class="recog-items">
+        <li>
+          <span class="recog-item-primary">Master of Business Administration, General Management</span>
+          <span class="recog-item-meta">Indian Institute of Management — Amritsar</span>
+        </li>
+        <li>
+          <span class="recog-item-primary">Bachelor of Engineering, Information Technology</span>
+          <span class="recog-item-meta">Gujarat Technological University (SCET) — Surat</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- TILE 2: ACHIEVEMENTS -->
+    <div class="recog-card">
+      <svg class="recog-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="6"/>
+        <path d="M15.5 12.5L17 22l-5-3-5 3 1.5-9.5"/>
+      </svg>
+      <div class="recog-card-eyebrow">Achievements</div>
+      <h3 class="recog-card-title">Awards &amp; Honors</h3>
+      <ul class="recog-items">
+        <li>
+          <span class="recog-item-primary">Pillar of Success Award</span>
+          <span class="recog-item-meta">IndiaMART</span>
+        </li>
+        <li>
+          <span class="recog-item-primary">Top Product Management Fellow</span>
+          <span class="recog-item-meta">NextLeap</span>
+        </li>
+        <li>
+          <span class="recog-item-primary">2nd Runner-Up, Byteverse (Data Analytics)</span>
+          <span class="recog-item-meta">IIM Amritsar</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- TILE 3: CERTIFICATES -->
+    <div class="recog-card">
+      <svg class="recog-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="14" rx="2"/>
+        <path d="M3 9h18M8 14h3"/>
+        <circle cx="16" cy="14" r="1.5"/>
+      </svg>
+      <div class="recog-card-eyebrow">Certificates</div>
+      <h3 class="recog-card-title">Continuing Education</h3>
+      <ul class="recog-items">
+        <li>
+          <span class="recog-item-primary">Digital Product Management</span>
+          <span class="recog-item-meta">University of Virginia</span>
+        </li>
+        <li>
+          <span class="recog-item-primary">Software Development Lifecycle Specialization</span>
+          <span class="recog-item-meta">University of Minnesota</span>
+        </li>
+        <li>
+          <span class="recog-item-primary">Entry Certificate in Business Analysis (ECBA)</span>
+          <span class="recog-item-meta">IIBA</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================================
+     OPEN TO
+============================================================================ -->
+<section id="opento" class="container">
+  <h2 class="section-heading reveal">What I'm Open To</h2>
+  <p class="section-sub reveal">
+    Currently based in Princeton, NJ. US work-authorized, no sponsorship required.
+  </p>
+
+  <div class="opento-grid reveal-stagger">
+    <div class="opento-card">
+      <div class="opento-title">Full-Time Roles</div>
+      <p class="opento-body">
+        Senior Associate / Associate / Product Manager / Strategy Associate / Senior Consultant / Business Analyst. Product, Strategy, Consulting, Operations. NY / NJ / PA preferred, open to hybrid.
+      </p>
+      <a href="#contact" class="opento-link">Let's talk →</a>
+    </div>
+    <div class="opento-card">
+      <div class="opento-title">Consulting &amp; Advisory</div>
+      <p class="opento-body">
+        Short-engagement project work for early-stage teams shipping AI products, marketplaces, or B2B SaaS.
+      </p>
+      <a href="#contact" class="opento-link">Let's talk →</a>
+    </div>
+    <div class="opento-card">
+      <div class="opento-title">Conversations</div>
+      <p class="opento-body">
+        Founders, hiring managers, or PMs interested in Agentic AI in production, marketplace quality, or moving from consulting to product.
+      </p>
+      <a href="#contact" class="opento-link">Let's talk →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     CONTACT
+============================================================================ -->
+<section id="contact" class="container contact">
+  <div class="contact-grid">
+    <div>
+      <h2 class="section-heading reveal">Get In Touch</h2>
+      <p class="section-sub reveal" style="margin-bottom:32px;">
+        For roles, projects, or a conversation about product, strategy, or AI in production.
+      </p>
+      <div class="contact-cta reveal">
+        <a href="mailto:akshitas06@iimamritsar.ac.in" class="btn-primary">Email Me</a>
+        <a href="https://www.linkedin.com/in/akshita-bais/" class="btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="assets/akshita-resume.pdf" class="btn-secondary" download>Download Resume</a>
+      </div>
+    </div>
+    <div class="reveal">
+      <ul class="contact-details">
+        <li><span class="label">Email</span><span>akshitas06@iimamritsar.ac.in</span></li>
+        <li><span class="label">Phone</span><span>+1 (323) 974-1434</span></li>
+        <li><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/akshita-bais/" target="_blank" rel="noopener" style="text-decoration:underline; text-decoration-color: var(--lavender); text-underline-offset: 3px;">/in/akshita-bais</a></li>
+        <li><span class="label">Location</span><span>Princeton, NJ</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  © 2026 Akshita Singh Bais
+</footer>
+
+<!-- ============================================================================
+     JAVASCRIPT
+============================================================================ -->
+<script>
+/* ----------------------------------------------------------------
+   EXPERIENCE DATA — single source of truth for nodes + timeline
+---------------------------------------------------------------- */
+const experienceData = [
+  {
+    id: 'A', short: 'A',
+    title: 'Assistant Product Manager — IndiaMART',
+    meta:  'Jan 2024 – Feb 2026 · Noida',
+    lens:  'Product · AI · Marketplace',
+    body:  `
+      <p>Owned zero-to-one launch of Agentic AI workflows on India's largest B2B marketplace. Shipped two flagship products in production:</p>
+      <ul>
+        <li><strong>Agentic AI Listing Approver</strong> — auto-audits 300K daily listings at 95% precision / 90% recall. Drove LLM cost to $0.0007/hit, unlocking 100x scale. Automated lead mapping saved 2,000+ hours/month and $250K annually.</li>
+        <li><strong>Category Search Relevance</strong> — overhauled the classification API serving 5M+ monthly hits. Cut latency 2s → 200ms (10x), improved relevance 35%, reduced bug-resolution TAT by 66% via a standardized SOP.</li>
+      </ul>`,
+    links: [
+      { href: '#work', text: 'View case study →', cls: 'link-primary' },
+      // [REPLACE: indiamart-live-url]
+      { href: '#',                              text: 'Visit live product ↗', cls: 'link-secondary' }
+    ]
+  },
+  {
+    id: 'B', short: 'B',
+    title: 'Product Owner — Accenture',
+    meta:  'Jun 2022 – Jan 2024 · Pune',
+    lens:  'B2B SaaS · Enterprise Delivery · Consulting',
+    body:  `
+      <p>Owned end-to-end delivery of IASP (Intelligent Application Security Platform), an enterprise orchestration platform for AppSec scanning. Clients: AT&amp;T, L'Oréal, Accenture CIO. Vendor stack: Veracode, BurpSuite, IriusRisk, Snyk, Zenity.</p>
+      <ul>
+        <li>Led product discovery across 10+ stakeholders, translated into a 12-month roadmap (cut post-launch rework by 40%)</li>
+        <li>Owned 26 sprints, shipped 20+ features at 90%+ velocity with &lt;2% production defect rate</li>
+        <li>Defined integration strategy for 5 third-party tools, growing MAU 30% (4K → 5.2K)</li>
+        <li>Authored 10+ PRDs, cut review cycles from 2 weeks to 4 days</li>
+        <li>Delivered 20% MRR growth, protected $180K in at-risk renewals</li>
+      </ul>`,
+    links: []
+  },
+  {
+    id: 'C', short: 'C',
+    title: 'Management Consulting Intern — CSRN',
+    meta:  'Nov 2021 – Jan 2022 · Remote',
+    lens:  'Strategy · Digital Transformation · Non-profit',
+    body:  `<p>Led management consulting engagement for an NGO. Designed and executed a data-driven digital transformation roadmap. Presented recommendations to senior leadership. Expanded program reach by 1,000+ users and reduced delivery costs through scalable operating model redesign.</p>`,
+    links: []
+  },
+  {
+    id: 'D', short: 'D',
+    title: 'Market Research Intern — Path Infotech',
+    meta:  'Apr 2021 – Jun 2021 · Noida',
+    lens:  'Market Sizing · GTM · Competitive Strategy',
+    body:  `<p>Analyzed Australian RPA industry for market entry. Assessed Microsoft Power Automate sizing, pricing, feature demand, and competitive positioning through quantitative analysis and user interviews. Generated insights for product and GTM teams.</p>`,
+    links: []
+  },
+  {
+    id: 'E', short: 'E',
+    title: 'MBA — IIM Amritsar',
+    meta:  'Jul 2020 – Apr 2022',
+    lens:  'General Management · Strategy · Analytics',
+    body:  `<p>Master of Business Administration with focus on general management, strategy, and analytics.</p>`,
+    links: []
+  },
+  {
+    id: 'F', short: 'F',
+    title: 'B.E. Information Technology — GTU/SCET Surat',
+    meta:  'Jul 2016 – Apr 2020',
+    lens:  'Engineering Foundation',
+    body:  `<p>Bachelor of Engineering in Information Technology. Foundation in software engineering, data structures, and systems.</p>`,
+    links: []
+  }
+];
+
+/* ----------------------------------------------------------------
+   ORBITAL VIEW — static positioned nodes (no rotation).
+   Reliable clicks; text always upright. Gentle motion comes from
+   the ring breathing animation in CSS, not the nodes themselves.
+---------------------------------------------------------------- */
+const orbitalRing   = document.getElementById('orbitalRing');
+const orbitalDetail = document.getElementById('orbitalDetail');
+const orbitalStage  = document.getElementById('orbitalStage');
+
+let currentRadius = 280; // recomputed in adjustOrbitalRadius
+
+function renderOrbitalNodes() {
+  const N = experienceData.length;
+  experienceData.forEach((role, i) => {
+    // distribute around the circle; start at top (-90deg)
+    const angle = (i / N) * 360 - 90;
+    const node = document.createElement('button');
+    node.type = 'button';
+    node.className = 'orbital-node';
+    node.dataset.id = role.id;
+    node.dataset.angle = angle;
+    node.setAttribute('aria-label', role.title);
+    node.innerHTML = `
+      <span class="node-letter">${role.short}</span>
+      <span class="orbital-node-label"></span>
+    `;
+    // label text: first segment of lens
+    const labelEl = node.querySelector('.orbital-node-label');
+    labelEl.textContent = role.lens.split('·')[0].trim();
+
+    node.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // clicking the already-active node closes it
+      if (activeRoleId === role.id) {
+        closeDetail();
+      } else {
+        selectRole(role.id);
+      }
+    });
+    orbitalRing.appendChild(node);
+  });
+  adjustOrbitalRadius();
+}
+
+function adjustOrbitalRadius() {
+  if (!orbitalStage) return;
+  const w = orbitalStage.offsetWidth;
+  if (!w) return;
+  const radius = Math.max(160, Math.min(290, w * 0.42));
+  currentRadius = radius;
+  const labelGap = 16;   // gap from node edge to label
+  const nodeRadius = 39; // half of node width
+
+  orbitalRing.querySelectorAll('.orbital-node').forEach((node, i) => {
+    const angle = (i / experienceData.length) * 360 - 90;
+    const rad = angle * Math.PI / 180;
+    // node center position relative to ring center
+    const x = Math.cos(rad) * radius;
+    const y = Math.sin(rad) * radius;
+    const baseTransform = `translate(${x}px, ${y}px)`;
+    node.style.setProperty('--base-transform', baseTransform);
+    node.style.transform = baseTransform;
+
+    // label placement: straight above (top half) or straight below (bottom half).
+    // This keeps labels horizontal and never let them collide with the node circle,
+    // unlike radial-outward placement which lands diagonally on the circle's edge.
+    // y < 0 means node is on top hemisphere → label sits ABOVE the node
+    // y >= 0 means node is on bottom hemisphere → label sits BELOW the node
+    const labelEl = node.querySelector('.orbital-node-label');
+    if (labelEl) {
+      const ly = (y < 0)
+        ? -(nodeRadius + labelGap)             // above
+        :  (nodeRadius + labelGap);             // below
+      labelEl.style.setProperty('--label-x', '0px');
+      labelEl.style.setProperty('--label-y', ly + 'px');
+    }
+  });
+}
+window.addEventListener('resize', adjustOrbitalRadius);
+
+/* ----------------------------------------------------------------
+   ROLE SELECTION (shared between orbital + timeline)
+---------------------------------------------------------------- */
+let activeRoleId = null;
+const orbitalDetailContent = document.getElementById('orbitalDetailContent');
+
+function buildDetailHTML(role) {
+  let linksHTML = '';
+  if (role.links.length) {
+    linksHTML = `
+      <div class="orbital-detail-links">
+        ${role.links.map(l => {
+          // Same-page anchors (#foo) should NOT open in a new tab.
+          const isAnchor = l.href.startsWith('#');
+          const targetAttr = isAnchor ? '' : ' target="_blank" rel="noopener"';
+          return `<a href="${l.href}" class="${l.cls}"${targetAttr}>${l.text}</a>`;
+        }).join('')}
+      </div>`;
+  }
+  return `
+    <div class="orbital-detail-eyebrow">${role.lens}</div>
+    <h3 class="orbital-detail-title">${role.title}</h3>
+    <div class="orbital-detail-meta">${role.meta}</div>
+    <div class="orbital-detail-body">${role.body}</div>
+    ${linksHTML}
+  `;
+}
+
+function selectRole(id) {
+  const role = experienceData.find(r => r.id === id);
+  if (!role) return;
+  activeRoleId = id;
+
+  // desktop: render role content into the persistent panel
+  if (orbitalDetail && orbitalDetailContent) {
+    orbitalDetailContent.innerHTML = buildDetailHTML(role);
+    orbitalDetail.classList.add('has-role');
+    // ensure the close button is mounted exactly once and always wired
+    let closeBtn = orbitalDetail.querySelector('.orbital-detail-close');
+    if (!closeBtn) {
+      closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'orbital-detail-close';
+      closeBtn.id = 'orbitalDetailClose';
+      closeBtn.setAttribute('aria-label', 'Close details');
+      closeBtn.textContent = '×';
+      closeBtn.addEventListener('click', closeDetail);
+      orbitalDetail.appendChild(closeBtn);
+    }
+  }
+  // mark active node
+  document.querySelectorAll('.orbital-node').forEach(n => {
+    n.classList.toggle('active', n.dataset.id === id);
+  });
+
+  // mobile: expand corresponding timeline item
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.id === id);
+  });
+}
+
+function closeDetail() {
+  activeRoleId = null;
+  if (orbitalDetail) {
+    orbitalDetail.classList.remove('has-role');
+    // also remove the close button so it doesn't sit over the placeholder
+    const closeBtn = orbitalDetail.querySelector('.orbital-detail-close');
+    if (closeBtn) closeBtn.remove();
+    if (orbitalDetailContent) orbitalDetailContent.innerHTML = '';
+  }
+  document.querySelectorAll('.orbital-node').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.timeline-item').forEach(item => item.classList.remove('active'));
+}
+
+// click-outside-to-close. A click inside the detail panel, on a node, or on
+// a timeline item should not close. We listen on document and check the target.
+const experienceTimeline = document.getElementById('experienceTimeline');
+document.addEventListener('click', (e) => {
+  if (!activeRoleId) return;
+  if (!orbitalDetail || !orbitalStage) return;
+  const t = e.target;
+  if (orbitalDetail.contains(t)) return;       // click inside panel
+  if (orbitalStage.contains(t))  return;       // click on a node (already handled)
+  if (experienceTimeline && experienceTimeline.contains(t)) return; // timeline click
+  closeDetail();
+});
+
+// ESC key closes
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && activeRoleId) closeDetail();
+});
+
+/* ----------------------------------------------------------------
+   MOBILE TIMELINE RENDERER
+---------------------------------------------------------------- */
+const timelineEl = document.getElementById('experienceTimeline');
+function renderTimeline() {
+  if (!timelineEl) return;
+  timelineEl.innerHTML = experienceData.map(role => `
+    <div class="timeline-item" data-id="${role.id}">
+      <span class="timeline-dot"></span>
+      <button class="timeline-trigger" data-id="${role.id}">
+        <div class="timeline-lens">${role.lens}</div>
+        <div class="timeline-title">${role.title}</div>
+        <div class="timeline-meta">${role.meta}</div>
+      </button>
+      <div class="timeline-body">
+        ${role.body}
+        ${role.links.length ? `
+          <div class="orbital-detail-links">
+            ${role.links.map(l => `<a href="${l.href}" class="${l.cls}" target="_blank" rel="noopener">${l.text}</a>`).join('')}
+          </div>` : ''}
+      </div>
+    </div>
+  `).join('');
+  timelineEl.querySelectorAll('.timeline-trigger, .timeline-dot').forEach(el => {
+    el.addEventListener('click', e => {
+      const item = e.currentTarget.closest('.timeline-item');
+      const id = item.dataset.id;
+      if (item.classList.contains('active')) {
+        item.classList.remove('active');
+        activeRoleId = null;
+      } else {
+        selectRole(id);
+      }
+    });
+  });
+}
+
+/* ----------------------------------------------------------------
+   INIT EXPERIENCE
+---------------------------------------------------------------- */
+renderOrbitalNodes();
+renderTimeline();
+// default selection: node A (Assistant Product Manager, IndiaMART — most recent role).
+// Skip on mobile so users don't tap the already-expanded item and have it collapse.
+// User can dismiss via close button, click-outside, or ESC.
+if (window.matchMedia('(min-width: 769px)').matches) {
+  selectRole('A');
+}
+
+/* ----------------------------------------------------------------
+   STICKY NAV — scroll state + active link tracking
+---------------------------------------------------------------- */
+const nav = document.getElementById('nav');
+const navLinks = document.querySelectorAll('.nav-link');
+const sectionIds = ['about', 'experience', 'work', 'writing', 'skills', 'contact'];
+
+function onScroll() {
+  // nav border
+  nav.classList.toggle('scrolled', window.scrollY > 8);
+
+  // active link
+  const scrollPos = window.scrollY + 120;
+  let current = sectionIds[0];
+  for (const id of sectionIds) {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= scrollPos) current = id;
+  }
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href').replace('#', '');
+    link.classList.toggle('active', href === current);
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ----------------------------------------------------------------
+   MOBILE NAV TOGGLE
+---------------------------------------------------------------- */
+const navToggle = document.getElementById('navToggle');
+const navLinksEl = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinksEl.classList.toggle('open');
+});
+navLinksEl.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinksEl.classList.remove('open');
+  });
+});
+
+/* ----------------------------------------------------------------
+   SCROLL REVEAL via IntersectionObserver
+---------------------------------------------------------------- */
+const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* ----------------------------------------------------------------
+   METRIC COUNT-UP with yellow sweep
+---------------------------------------------------------------- */
+const metricsRow = document.getElementById('metricsRow');
+let metricsAnimated = false;
+
+function animateMetrics() {
+  if (metricsAnimated) return;
+  metricsAnimated = true;
+  const nums = metricsRow.querySelectorAll('.metric-num');
+  nums.forEach((el, idx) => {
+    const target = parseInt(el.dataset.target, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1500;
+    const startDelay = idx * 150;
+    const startTime = performance.now() + startDelay;
+    el.classList.add('sweeping');
+
+    function step(now) {
+      if (now < startTime) {
+        requestAnimationFrame(step);
+        return;
+      }
+      const t = Math.min(1, (now - startTime) / duration);
+      // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      const val = Math.round(target * eased);
+      el.textContent = prefix + val + suffix;
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        // settle to charcoal
+        setTimeout(() => el.classList.remove('sweeping'), 250);
+      }
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+const metricsObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateMetrics();
+      metricsObs.disconnect();
+    }
+  });
+}, { threshold: 0.4 });
+if (metricsRow) metricsObs.observe(metricsRow);
+</script>
+
+</body>
+</html>
